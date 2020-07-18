@@ -1,0 +1,335 @@
+7.15
+
+package com.suep.servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+/*
+ * service方法和doGet、doPost方法的区别
+ * 重要：每次修改.java都要重启
+ * 
+ * Service方法：
+ * 		get或post请求都能得到相应
+ * 
+ * doGet方法：
+ * 		处理get方法
+ * doPost方法：
+ * 		处理post方法
+ * 
+ * 同时有service方法和doGet、doPost优先使用service
+ * 
+ * 注意：
+ * 		如果在覆写的service方法中又调用了父类的service方法super.service(req,resp)，
+ * 则service方法处理后，会再次根据请求方式响应的doGet和doPost方法执行
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * Servlet常见错误：
+ * 		404错误：资源未找到web.xml里写的url是method而地址栏里写成了localhost：8080/xxx/mothod不匹配了
+ * 			原因有：1、在请求地址中的servlet的别名书写错误；
+ * 					2、虚拟项目名拼写错误
+ * 		
+ * 		500错误：
+ * 			1、全限定路径拼写错误localhost：8080/xxx（左边这里错误）/method			java.lang.ClassNotFoundException:com.suep.servlet.ServletMothod
+ * 				解决：
+ * 					在web.xml检查全限定路径拼写错误
+ * 			2、int i=5/0;	因为service方法体的代码执行错误导致
+ * 				解决：
+ * 					根据错误对service方法体中的代码进行更改
+ * 			3、<servlet-class>中的类的全限定路径拼写错误
+ * 				解决：
+ * 				
+ * 		405错误：请求方式不支持
+ * 			原因：请求方式和servlet中的方法不匹配
+ * 			解决：
+ * 				尽量使用service方法进行请求处理，并且不要在service方法中调用父类的service；
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */
+
+
+public class ServletMethod extends HttpServlet {
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("我是service");
+		//super.service(req, resp);
+		//如果不删，先调用this.service，在调用父类的super.service()，而父类的那个方法是再调用一下doGet或者doPost，
+			//如果你在本ServletMethod中覆写了doGet、doPost则调用他们，如果没有，就调用父类的，而父类的原来写的是报错
+		
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("我是doGet方法");
+	}
+
+		
+	
+
+}
+
+
+7.16
+package com.suep.servlet;
+
+import java.io.IOException;
+/*
+ * 
+ * Servlet的生命周期：
+ * 		1、从第一次调用到服务器关闭
+ * 		2、如果Servlet在web.xml中配置类load-on-startup,生命周期为从服务器启动到服务器关闭
+ * 
+ * 
+ * 注意：
+ * 		init方法是对Servlet进行初始化的一个方法，会在Servlet第一次加载进行存储时执行
+ * 		destroy方法是在Servlet被销毁时执行，也就是服务器关闭时
+ * */
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletLife extends HttpServlet {
+	//初始化方法，在service第一次加载内容的时候被调用
+	@Override
+	public void init() throws ServletException {
+		System.out.println("servlet is initialated");
+	}
+	
+	
+	//service方法，真正处理请求的方法
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.getWriter().write("servlet life");
+		System.out.println("servlet life");
+	}
+	
+	@Override
+	public void destroy() {
+		System.out.println("i am destroyed");
+	}
+}
+
+
+
+
+
+
+web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  	<servlet>
+  		<servlet-name>ServletLife</servlet-name>
+  		<servlet-class>com.suep.servlet.ServletLife</servlet-class>
+  		<load-on-startup>1</load-on-startup><!-- 第一个加载（加载顺序） -->
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>ServletLife</servlet-name>
+  		<url-pattern>/life</url-pattern>
+  	</servlet-mapping>
+</web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7.17
+
+Exception in thread "main" java.util.NoSuchElementException 
+at java.util.Scanner.throwFor(Unknown Source) 
+at java.util.Scanner.next(Unknown Source) 
+at java.util.Scanner.nextInt(Unknown Source) 
+at java.util.Scanner.nextInt(Unknown Source) 
+at com.suep.test.Test.main(Test.java:26)
+
+https://blog.csdn.net/sun8112133/article/details/84350216
+
+
+
+
+
+
+Scanner关闭了就没有了
+还有可能因为声明了许多同样名称的Scanner
+比如我在每个方法里都同样声明了Scanner scanner =new Scanner（System.in）；
+
+
+
+
+
+修改前：
+
+package com.suep.service;
+
+import java.util.Scanner;
+
+import com.suep.dao.EmpDaoImpl;
+import com.suep.pojo.Emp;
+
+public class ServiceImpl implements Service{
+	public void select() {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入用户编号：");
+		int id=sc.nextInt();
+		int i=0;
+		//调用数据层操作
+			//创建数据库层对象
+		EmpDaoImpl ed =new EmpDaoImpl();
+		Emp emp=ed.selAllEmpInfoByNumber(id);
+		if(emp!=null)
+		{
+			i=1;
+			System.out.println(emp.toString());
+		}
+		feedback(i);
+		sc.close();
+	}
+	public void insert() {
+		System.out.println("功能开发中");
+	}
+	public void delete() {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("请输入用户编号：");
+		int id=sc.nextInt();
+		//调用数据层操作
+			//创建数据库层对象
+		EmpDaoImpl ed =new EmpDaoImpl();
+		int i=ed.delEmp(id);
+		feedback(i);
+		sc.close();
+	}
+	public void update() {
+		Scanner sc=new Scanner(System.in);
+		
+		System.out.println("请输入新的用户名：");
+		String newname=sc.next();
+		System.out.println("请输入用户编号：");
+		int id=sc.nextInt();
+
+		
+		//调用数据层操作
+			//创建数据库层对象
+		EmpDaoImpl ed =new EmpDaoImpl();
+		int i=ed.upEmp(newname, id);
+		feedback(i);
+		sc.close();
+	}
+	public void selectall() {
+		System.out.println("功能开发中");
+		
+	}
+	public void feedback(int i) {
+		if(i>0) {
+			System.out.println("更新成功！");
+		}else {
+			System.out.println("更新失败！");
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------
+
+
+修改后：
+
+package com.suep.service;
+
+import java.util.Scanner;
+
+import com.suep.dao.EmpDaoImpl;
+import com.suep.pojo.Emp;
+
+public class ServiceImpl implements Service{
+	static Scanner sc;
+	static {
+		sc=new Scanner(System.in);
+	}
+	public void select() {
+		
+		System.out.println("请输入用户编号：");
+		int id=sc.nextInt();
+		int i=0;
+		//调用数据层操作
+			//创建数据库层对象
+		EmpDaoImpl ed =new EmpDaoImpl();
+		Emp emp=ed.selAllEmpInfoByNumber(id);
+		if(emp!=null)
+		{
+			i=1;
+			System.out.println(emp.toString());
+		}
+		feedback(i);
+	}
+	public void insert() {
+		System.out.println("功能开发中");
+	}
+	public void delete() {
+		System.out.println("请输入用户编号：");
+		int id=sc.nextInt();
+		//调用数据层操作
+			//创建数据库层对象
+		EmpDaoImpl ed =new EmpDaoImpl();
+		int i=ed.delEmp(id);
+		feedback(i);
+	}
+	public void update() {
+		
+		System.out.println("请输入新的用户名：");
+		String newname=sc.next();
+		System.out.println("请输入用户编号：");
+		int id=sc.nextInt();
+
+		
+		//调用数据层操作
+			//创建数据库层对象
+		EmpDaoImpl ed =new EmpDaoImpl();
+		int i=ed.upEmp(newname, id);
+		feedback(i);
+	}
+	public void selectall() {
+		System.out.println("功能开发中");
+		
+	}
+	public void feedback(int i) {
+		if(i>0) {
+			System.out.println("更新成功！");
+		}else {
+			System.out.println("更新失败！");
+		}
+	}
+}
+
