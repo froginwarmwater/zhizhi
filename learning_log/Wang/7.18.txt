@@ -1,0 +1,117 @@
+JavaScript 会在页面加载时向 HTML 的 <body> 写文本
+<!DOCTYPE html>
+<html>
+<body>
+.
+.
+<script>
+document.write("<h1>这是一个标题</h1>");
+document.write("<p>这是一个段落</p>");
+</script>
+.
+.
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function myFunction()
+{
+    document.getElementById("demo").innerHTML="我的第一个 JavaScript 函数";
+}
+</script>
+</head>
+<body>
+<h1>我的 Web 页面</h1>
+<p id="demo">一个段落</p>
+<button type="button" onclick="myFunction()">尝试一下</button>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<body>
+<h1>我的 Web 页面</h1>
+<p id="demo">一个段落</p>
+<button type="button" onclick="myFunction()">尝试一下</button>
+<script>
+function myFunction()
+{
+    document.getElementById("demo").innerHTML="我的第一个 JavaScript 函数";
+}
+</script>
+</body>
+</html>
+
+
+外部的 JavaScript
+也可以把脚本保存到外部文件中。外部文件通常包含被多个网页使用的代码。
+外部 JavaScript 文件的文件扩展名是 .js。
+如需使用外部文件，请在 <script> 标签的 "src" 属性中设置该 .js 文件：
+
+<!DOCTYPE html>
+<html>
+<body>
+<script src="myScript.js"></script>
+</body>
+</html>
+
+
+
+输出
+使用 window.alert()
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>我的第一个页面</h1>
+<p>我的第一个段落。</p>
+
+<script>
+window.alert(5 + 6);
+</script>
+
+</body>
+</html>
+
+
+操作 HTML 元素
+如需从 JavaScript 访问某个 HTML 元素，您可以使用 document.getElementById(id) 方法。 
+请使用 "id" 属性来标识 HTML 元素，并 innerHTML 来获取或插入元素内容：
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>我的第一个 Web 页面</h1>
+
+<p id="demo">我的第一个段落</p>
+
+<script>
+document.getElementById("demo").innerHTML = "段落已修改。";
+</script>
+
+</body>
+</html>
+
+
+写到 HTML 文档
+出于测试目的，您可以将JavaScript直接写在HTML 文档中：
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>我的第一个 Web 页面</h1>
+
+<p>我的第一个段落。</p>
+
+<script>
+document.write(Date());
+</script>
+
+</body>
+</html>
