@@ -1,0 +1,80 @@
+<!--
+此文件为开发者工具生成，生成时间: 2020/7/17 上午11:29:15 
+使用方法：
+1. 在"pages\goods_list\index.wxml"中使用`include`指令引入此模板，
+2. 在"pages\goods_list\index.wxss"中使用`import`指令引入"pages\goods_list\index.skeleton.wxss"
+3. 书写对应的逻辑，来控制骨架屏的显示与隐藏
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<view class="sk-container">
+  <view is="components/SearchInput/SearchInput">
+    <view class="SearchInput--search_input">
+      <navigator open-type="navigate" class="sk-transparent sk-text-14-2857-151 sk-text" style="background-size: 7.05128% 0.9625rem;">
+        搜索
+      </navigator>
+    </view>
+  </view>
+  <view is="components/Tabs/Tabs">
+    <view class="Tabs--tabs">
+      <view class="Tabs--tabs_title">
+        <view class="Tabs--title_item Tabs--active sk-transparent sk-text-14-2857-264 sk-text" data-index="0" style="border: none; background-size: 20.625% 0.9625rem;">
+          综合
+        </view>
+        <view class="Tabs--title_item sk-transparent sk-text-14-2857-556 sk-text" data-index="1" style="background-size: 20.625% 0.9625rem;">
+          销量
+        </view>
+        <view class="Tabs--title_item sk-transparent sk-text-14-2857-702 sk-text" data-index="2" style="background-size: 20.625% 0.9625rem;">
+          价格
+        </view>
+      </view>
+      <view class="Tabs--tabs_content">
+        <view class="first_tab">
+          <navigator class="goods_item" style="border: none;">
+            <view class="goods_img_wrap">
+              <image mode="widthFix" style="height: 89px;" class="sk-image"></image>
+            </view>
+            <view class="goods_info_wrap">
+              <view class="goods_name sk-transparent sk-text-14-2857-468 sk-text" style="background-size: 100% 0.9625rem;">
+                海信(Hisense)LED55MU9600X3DUC 55英寸 4K超高清量子点电视 ULED画质 VIDAA系统
+              </view>
+              <view class="goods_price sk-transparent"></view>
+            </view>
+          </navigator>
+          <navigator class="goods_item" style="border: none;">
+            <view class="goods_img_wrap">
+              <image mode="widthFix" style="height: 89px;" class="sk-image"></image>
+            </view>
+            <view class="goods_info_wrap">
+              <view class="goods_name sk-transparent sk-text-14-2857-866 sk-text" style="background-size: 100% 0.9625rem;">
+                海信(Hisense)LED50MU8600UC 50英寸 4K超高清智能电视 HDR超薄曲面
+              </view>
+              <view class="goods_price sk-transparent"></view>
+            </view>
+          </navigator>
+          <navigator class="goods_item" style="border: none;">
+            <view class="goods_img_wrap">
+              <image mode="widthFix" style="height: 89px;" class="sk-image"></image>
+            </view>
+            <view class="goods_info_wrap">
+              <view class="goods_name sk-transparent sk-text-14-2857-768 sk-text" style="background-size: 36.8001% 0.9625rem;">
+                TCL电视 49P3
+              </view>
+              <view class="goods_price sk-transparent"></view>
+            </view>
+          </navigator>
+          <navigator class="goods_item" style="border: none;">
+            <view class="goods_img_wrap">
+              <image mode="widthFix" class="sk-image"></image>
+            </view>
+            <view class="goods_info_wrap">
+              <view class="goods_name sk-transparent sk-text-14-2857-173 sk-text" style="background-size: 100% 0.9625rem;">
+                Amoi夏新曲面电视机55英寸 4K全高清安卓系统智能语音无线WiFi网络 48/50蓝光夜晶3D数字彩电 家用超薄窄边
+              </view>
+            </view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
